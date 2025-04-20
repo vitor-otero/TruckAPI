@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.routes';
+import truckStopRoutes from './routes/truckStop.routes';
 
 dotenv.config();
 
@@ -13,12 +14,15 @@ app.use(express.json());
 
 // User routes
 app.use('/api/users', userRoutes);
+// Truck stop routes
+app.use('/api/truck-stops', truckStopRoutes);
 
 // Basic health check endpoint
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.json({ status: 'API is running' });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+const numericPort = parseInt(port.toString(), 10);
+app.listen(numericPort, '0.0.0.0', () => {
+  console.log(`Server is running on http://0.0.0.0:${numericPort}`);
 });
