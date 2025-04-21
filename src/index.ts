@@ -9,7 +9,15 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
+// Configure CORS with specific options
+app.use(cors({
+  origin: '*', // In production, you might want to restrict this to specific domains
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
+
 app.use(express.json());
 
 // User routes
